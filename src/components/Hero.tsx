@@ -1,9 +1,10 @@
 import { motion } from "framer-motion";
 import { Github, Linkedin, Instagram, Volume2, VolumeX } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
+import profileImg from "@/assets/profile.jpg";
 
 const Hero = () => {
-  const [muted, setMuted] = useState(false);
+  const [muted, setMuted] = useState(true);
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const [playerReady, setPlayerReady] = useState(false);
 
@@ -12,8 +13,7 @@ const Hero = () => {
     // Listen for YouTube iframe API messages
     const handleMessage = (event: MessageEvent) => {
       try {
-        const data =
-          typeof event.data === "string" ? JSON.parse(event.data) : event.data;
+        const data = typeof event.data === "string" ? JSON.parse(event.data) : event.data;
         if (data.event === "onReady" || data.info?.playerState !== undefined) {
           setPlayerReady(true);
         }
@@ -29,7 +29,7 @@ const Hero = () => {
     if (iframeRef.current?.contentWindow) {
       iframeRef.current.contentWindow.postMessage(
         JSON.stringify({ event: "command", func, args: args || [] }),
-        "*",
+        "*"
       );
     }
   };
@@ -44,14 +44,7 @@ const Hero = () => {
     setMuted(!muted);
   };
 
-  // Auto-unmute after a short delay to let iframe load
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      sendCommand("unMute");
-      sendCommand("setVolume", [60]);
-    }, 2000);
-    return () => clearTimeout(timer);
-  }, []);
+  // Video starts muted to comply with browser autoplay policy
 
   return (
     <section id="home" className="relative h-screen w-full overflow-hidden">
@@ -59,7 +52,7 @@ const Hero = () => {
       <div className="absolute inset-0 z-0">
         <iframe
           ref={iframeRef}
-          src="https://www.youtube.com/embed/7Aav_0S5NSE?autoplay=1&mute=0&loop=1&playlist=7Aav_0S5NSE&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&enablejsapi=1&origin=*"
+          src="https://www.youtube.com/embed/7Aav_0S5NSE?autoplay=1&mute=1&loop=1&playlist=7Aav_0S5NSE&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&enablejsapi=1&origin=*"
           title="Background Video"
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200vw] h-[200vh] md:w-[120vw] md:h-[120vh] pointer-events-none"
           allow="autoplay; encrypted-media"
@@ -97,14 +90,11 @@ const Hero = () => {
             className="mb-6 flex justify-center"
           >
             <div className="glass glow-box rounded-full p-1.5 w-28 h-28 md:w-36 md:h-36">
-              <div className="w-full h-full rounded-full bg-muted flex items-center justify-center text-muted-foreground text-3xl md:text-4xl font-bold overflow-hidden">
-                {/* Replace this div with an <img> when you have a real photo */}
-                <img
-                  src="/public/profile.jpg"
-                  alt="Profile"
-                  className="w-full h-full rounded-full object-cover"
-                />
-              </div>
+              <img
+                src={profileImg}
+                alt="Abinash Leo Navaseelan"
+                className="w-full h-full rounded-full object-cover"
+              />
             </div>
           </motion.div>
 

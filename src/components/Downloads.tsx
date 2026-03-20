@@ -30,16 +30,14 @@ const downloads: DownloadItem[] = [
   },
   {
     title: "Certificates",
-    description:
-      "View and download my professional certifications in IT, networking, and web development.",
+    description: "View and download my professional certifications in IT, networking, and web development.",
     icon: <Award size={24} />,
     file: "/downloads/Certificates.pdf",
     fileName: "Certificates.pdf",
   },
   {
     title: "Other Documents",
-    description:
-      "Additional documents, transcripts, and supporting files available for download.",
+    description: "Additional documents, transcripts, and supporting files available for download.",
     icon: <FolderOpen size={24} />,
     file: "/downloads/Other_Documents.pdf",
     fileName: "Other_Documents.pdf",
@@ -118,9 +116,7 @@ const Downloads = () => {
           viewport={{ once: true }}
           className="text-center text-muted-foreground text-sm mt-8 font-mono"
         >
-          * Upload your files to the{" "}
-          <span className="text-primary">public/downloads/</span> folder to
-          enable downloads
+          * Upload your files to the <span className="text-primary">public/downloads/</span> folder to enable downloads
         </motion.p>
       </div>
     </section>

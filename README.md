@@ -7,5 +7,3 @@
 <p align="center">
 <img src="./favicon.png" />
 </p>
-
-Made by: Abinash Navaseelan
